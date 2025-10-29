@@ -116,18 +116,7 @@ class User extends Authenticatable implements FilamentUser
     /**
      * Helper methods
      */
-    public function getFilamentName(): string
-{
-    // Ensure we always return a non-empty string
-    $name = trim(($this->first_name ?? '') . ' ' . ($this->last_name ?? ''));
 
-    if (!empty($name)) {
-        return $name;
-    }
-
-    // Fallback to email, and ensure it's never null
-    return $this->email ?? 'Unknown User';
-}
 public function getUserName(): string
 {
 
