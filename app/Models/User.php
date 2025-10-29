@@ -6,9 +6,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Billable;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, Billable;
@@ -19,8 +23,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
+        'username',
         'email',
         'password',
         'user_type',
@@ -112,10 +116,30 @@ class User extends Authenticatable
     /**
      * Helper methods
      */
-    public function getFullNameAttribute()
-    {
-        return trim($this->first_name . ' ' . $this->last_name);
+    public function getFilamentName(): string
+{
+    // Ensure we always return a non-empty string
+    $name = trim(($this->first_name ?? '') . ' ' . ($this->last_name ?? ''));
+
+    if (!empty($name)) {
+        return $name;
     }
+
+    // Fallback to email, and ensure it's never null
+    return $this->email ?? 'Unknown User';
+}
+public function getUserName(): string
+{
+
+
+    return $this->getFilamentName();
+}
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->isAdmin();
+    }
+
 
     public function getBmiAttribute()
     {
@@ -148,7 +172,7 @@ class User extends Authenticatable
     {
         return $this->user_type === 'admin';
     }
-    
+
     /**
      * Verify admin has proper privileges and active status
      */
@@ -157,12 +181,12 @@ class User extends Authenticatable
         if (!$this->isAdmin()) {
             return false;
         }
-        
+
         // Check if admin profile exists and is active
         if (!$this->adminProfile || $this->adminProfile->status !== 'active') {
             return false;
         }
-        
+
         return true;
     }
 

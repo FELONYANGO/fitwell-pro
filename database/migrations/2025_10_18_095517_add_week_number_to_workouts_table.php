@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('workouts', function (Blueprint $table) {
-            //
+         Schema::table('workouts', function (Blueprint $table) {
+        if (!Schema::hasColumn('workouts', 'week_number')) {
             $table->integer('week_number')->after('status');
-            $table->integer('day')->after('week_number')->default(1);
-        });
+        }
+    });;
     }
 
     /**

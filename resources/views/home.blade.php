@@ -6,7 +6,7 @@
     <title>FitWell Pro - Transform Your Fitness Journey</title>
     <meta name="description" content="FitWell Pro connects you with professional fitness trainers for personalized workout plans, nutrition guidance, and real-time progress tracking.">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     <!-- Fonts - Using Figtree -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:300,400,500,600,700,800&display=swap" rel="stylesheet" />
@@ -16,14 +16,14 @@
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
+
     <!-- Particles.js for hero section -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
+
     <style>
         :root {
             /* Theme colors matching trainer dashboard */
@@ -48,7 +48,7 @@
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
         }
-        
+
         @keyframes pulse-ring {
             0% { transform: scale(0.95); opacity: 1; }
             40% { transform: scale(1.3); opacity: 0; }
@@ -392,7 +392,7 @@
                         Connect with certified personal trainers, get personalized workout plans, and achieve your goals with our comprehensive fitness platform.
                     </p>
 
-                    <!-- CTA Buttons --> 
+                    <!-- CTA Buttons -->
                     <div class="flex flex-wrap gap-4 mb-6">
                         <a href="{{ route('register') }}" class="bg-gradient-to-r from-green-500 to-cyan-500 text-white px-8 py-4 text-lg font-semibold rounded-full hover:from-green-600 hover:to-cyan-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                             <i class="fas fa-play-circle mr-2"></i>Get Started Now
@@ -1222,7 +1222,7 @@
                 activeUsers: 0,
                 trainers: 0,
                 successRate: 0,
-                
+
                 // Trainer filtering
                 trainerFilter: 'all',
                 trainers: [
@@ -1267,7 +1267,7 @@
                         image: 'https://via.placeholder.com/400x200'
                     }
                 ],
-                
+
                 quizQuestions: [
                     {
                         id: 1,
@@ -1317,7 +1317,7 @@
                             debounceDelay: 50,
                             throttleDelay: 99
                         });
-                        
+
                         // Refresh AOS to ensure elements are detected
                         AOS.refresh();
                     }, 100);
@@ -1338,7 +1338,7 @@
                     if (this.trainerFilter === 'all') {
                         return this.trainers;
                     }
-                    return this.trainers.filter(trainer => 
+                    return this.trainers.filter(trainer =>
                         trainer.specialty.toLowerCase() === this.trainerFilter
                     );
                 },
@@ -1392,7 +1392,7 @@
                     const interval = setInterval(() => {
                         step++;
                         const progress = step / steps;
-                        
+
                         this.activeUsers = Math.floor(targets.users * progress);
                         this.trainers = Math.floor(targets.trainers * progress);
                         this.successRate = Math.floor(targets.success * progress);
@@ -1431,7 +1431,7 @@
 
                 selectAnswer(answer) {
                     this.quizAnswers[this.currentQuestion] = answer;
-                    
+
                     if (this.currentQuestion < this.quizQuestions.length - 1) {
                         this.currentQuestion++;
                     } else {
@@ -1441,14 +1441,14 @@
 
                 completeQuiz() {
                     this.quizCompleted = true;
-                    
+
                     // Generate personalized result
                     const goal = this.quizAnswers[0];
                     const frequency = this.quizAnswers[1];
                     const preference = this.quizAnswers[2];
 
                     let result = 'Based on your responses, we recommend ';
-                    
+
                     if (goal === 'weight_loss') {
                         result += 'our Professional plan with cardio-focused training and nutrition support.';
                     } else if (goal === 'muscle_gain') {
