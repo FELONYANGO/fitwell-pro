@@ -6,28 +6,28 @@
     <title>FitWell Pro - Transform Your Fitness Journey</title>
     <meta name="description" content="FitWell Pro connects you with professional fitness trainers for personalized workout plans, nutrition guidance, and real-time progress tracking.">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     <!-- Fonts - Using same as trainer dashboard (Figtree) -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:300,400,500,600,700,800&display=swap" rel="stylesheet" />
-    
+
     <!-- Bootstrap CSS & Icons - Consistent with trainer dashboard -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    
+
     <!-- Alpine.js -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    
+
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
+
     <!-- Particles.js for hero section -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
+
     <style>
         :root {
             /* Theme colors matching trainer dashboard */
@@ -52,7 +52,7 @@
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
         }
-        
+
         @keyframes pulse-ring {
             0% { transform: scale(0.95); opacity: 1; }
             40% { transform: scale(1.3); opacity: 0; }
@@ -410,13 +410,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6" data-aos="fade-right">
                     <h1 class="hero-title text-white mb-4" style="font-size: 3.5rem; font-weight: 800;">
-                        Transform Your 
+                        Transform Your
                         <span style="color: var(--accent);">Fitness Journey</span>
                     </h1>
                     <p class="lead text-white mb-5" style="font-size: 1.3rem; opacity: 0.9;">
                         Connect with certified personal trainers, get personalized workout plans, and achieve your goals with our comprehensive fitness platform.
                     </p>
-                    
+
                     <!-- CTA Buttons -->
                     <div class="d-flex flex-wrap gap-3 mb-5">
                         <button class="btn btn-primary-custom btn-lg" @click="startQuiz">
@@ -469,14 +469,14 @@
     </section>
 
     <!-- Interactive Fitness Quiz Modal -->
-    <div class="quiz-modal position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
+    <div class="quiz-modal position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
          x-show="showQuiz" x-transition style="z-index: 9999;">
         <div class="quiz-card" data-aos="zoom-in">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3 class="mb-0">Fitness Assessment</h3>
                 <button class="btn-close" @click="closeQuiz"></button>
             </div>
-            
+
             <!-- Progress Bar -->
             <div class="quiz-progress">
                 <div class="quiz-progress-bar" :style="`width: ${(currentQuestion + 1) / quizQuestions.length * 100}%`"></div>
@@ -487,8 +487,8 @@
                 <h5 x-text="quizQuestions[currentQuestion]?.question" class="mb-4"></h5>
                 <div class="d-grid gap-2">
                     <template x-for="option in quizQuestions[currentQuestion]?.options" :key="option.value">
-                        <button class="btn btn-outline-primary text-start p-3" 
-                                @click="selectAnswer(option.value)" 
+                        <button class="btn btn-outline-primary text-start p-3"
+                                @click="selectAnswer(option.value)"
                                 x-text="option.text"></button>
                     </template>
                 </div>
@@ -516,7 +516,7 @@
                 <h2 class="display-4 fw-bold mb-3" style="color: var(--dark);">Everything You Need to Succeed</h2>
                 <p class="lead text-muted">Comprehensive tools and expert guidance for your transformation</p>
             </div>
-            
+
             <div class="row g-4">
                 <!-- Enhanced feature cards with hover effects -->
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
@@ -607,7 +607,7 @@
                 <h2 class="display-4 fw-bold mb-3" style="color: var(--dark);">How It Works</h2>
                 <p class="lead text-muted">Get started in just 3 simple steps</p>
             </div>
-            
+
             <div class="row g-4 align-items-center">
                 <div class="col-md-4" data-aos="fade-right">
                     <div class="text-center">
@@ -647,7 +647,7 @@
                 <h2 class="display-4 fw-bold mb-3" style="color: var(--dark);">Success Stories</h2>
                 <p class="lead text-muted">Real transformations from real people</p>
             </div>
-            
+
             <div class="row g-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-md-6 col-lg-4">
                     <div class="testimonial-card">
@@ -768,7 +768,7 @@
                 <h2 class="display-4 fw-bold mb-3" style="color: var(--dark);">Choose Your Plan</h2>
                 <p class="lead text-muted">Flexible pricing to fit your lifestyle</p>
             </div>
-            
+
             <div class="row g-4 justify-content-center" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-md-6 col-lg-4">
                     <div class="feature-card text-center h-100 position-relative">
@@ -916,14 +916,14 @@
                 activeUsers: 0,
                 trainers: 0,
                 successRate: 0,
-                
+
                 // Quiz system
                 showQuiz: false,
                 currentQuestion: 0,
                 quizAnswers: [],
                 quizCompleted: false,
                 quizResult: '',
-                
+
                 // Trainer filtering
                 trainerFilter: 'all',
                 trainers: [
@@ -968,7 +968,7 @@
                         image: 'https://via.placeholder.com/400x200'
                     }
                 ],
-                
+
                 quizQuestions: [
                     {
                         question: 'What is your primary fitness goal?',
@@ -1021,7 +1021,7 @@
                     if (this.trainerFilter === 'all') {
                         return this.trainers;
                     }
-                    return this.trainers.filter(trainer => 
+                    return this.trainers.filter(trainer =>
                         trainer.specialty.toLowerCase() === this.trainerFilter
                     );
                 },
@@ -1075,7 +1075,7 @@
                     const interval = setInterval(() => {
                         step++;
                         const progress = step / steps;
-                        
+
                         this.activeUsers = Math.floor(targets.users * progress);
                         this.trainers = Math.floor(targets.trainers * progress);
                         this.successRate = Math.floor(targets.success * progress);
@@ -1113,7 +1113,7 @@
 
                 selectAnswer(answer) {
                     this.quizAnswers[this.currentQuestion] = answer;
-                    
+
                     if (this.currentQuestion < this.quizQuestions.length - 1) {
                         this.currentQuestion++;
                     } else {
@@ -1123,14 +1123,14 @@
 
                 completeQuiz() {
                     this.quizCompleted = true;
-                    
+
                     // Generate personalized result
                     const goal = this.quizAnswers[0];
                     const frequency = this.quizAnswers[1];
                     const preference = this.quizAnswers[2];
 
                     let result = 'Based on your responses, we recommend ';
-                    
+
                     if (goal === 'weight_loss') {
                         result += 'our Professional plan with cardio-focused training and nutrition support.';
                     } else if (goal === 'muscle_gain') {

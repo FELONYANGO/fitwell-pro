@@ -10,35 +10,19 @@ class Exercise extends Model
     use HasFactory;
 
     protected $fillable = [
+        'workout_id',
         'name',
-        'description',
-        'category',
-        'muscle_groups',
-        'equipment_needed',
-        'instructions',
-        'calories_per_minute',
+        'body_part',
+        'sets',
+        'reps',
+        'duration',
+        'rest_period',
+        'notes',
         'video_url',
-        'image_url',
     ];
 
-    protected function casts(): array
+    public function workout()
     {
-        return [
-            'muscle_groups' => 'array',
-        ];
-    }
-
-    /**
-     * Relationships
-     */
-    public function workouts()
-    {
-        return $this->belongsToMany(Workout::class, 'workout_exercises')
-                    ->withPivot(['sets', 'reps', 'weight', 'duration_seconds', 'distance', 'notes', 'order']);
-    }
-
-    public function workoutExercises()
-    {
-        return $this->hasMany(WorkoutExercise::class);
+        return $this->belongsTo(Workout::class);
     }
 }

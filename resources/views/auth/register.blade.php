@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account - FitWell Pro</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- Fonts - Using Figtree like homepage and trainer dashboard -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:300,400,500,600,700,800&display=swap" rel="stylesheet" />
-    <!-- Alpine.js -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
@@ -52,15 +49,15 @@
             </div>
 
             <div class="bg-white shadow-xl rounded-xl border border-gray-100 overflow-hidden backdrop-blur-sm bg-white/95">
-                <form action="{{ route('register') }}" method="POST" class="p-8" x-data="{ 
-                    loading: false, 
+                <form action="{{ route('register') }}" method="POST" class="p-8" x-data="{
+                    loading: false,
                     userType: 'client',
                     showAdvanced: false,
                     currentStep: 1,
                     totalSteps: 2
                 }" @submit="loading = true">
                     @csrf
-                    
+
                     <!-- Progress Steps -->
                     <div class="mb-8">
                         <div class="flex items-center justify-center space-x-4">
@@ -82,7 +79,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Error Messages -->
                     @if ($errors->any())
                         <div class="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
@@ -159,7 +156,7 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            
+
                             <div>
                                 <label for="last_name" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
                                 <input
@@ -208,7 +205,7 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            
+
                             <div>
                                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
                                 <input
@@ -321,7 +318,7 @@
                                         <option value="advanced" {{ old('fitness_level') == 'advanced' ? 'selected' : '' }}>Advanced</option>
                                     </select>
                                 </div>
-                                
+
                                 <div>
                                     <label for="activity_level" class="block text-sm font-medium text-gray-700 mb-2">Activity Level</label>
                                     <select
@@ -408,7 +405,7 @@
                                         max="50"
                                     >
                                 </div>
-                                
+
                                 <div>
                                     <label for="hourly_rate" class="block text-sm font-medium text-gray-700 mb-2">Hourly Rate ($)</label>
                                     <input
@@ -428,8 +425,8 @@
 
                         <!-- Navigation Buttons -->
                         <div class="flex justify-between pt-6 border-t border-gray-200">
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 @click="currentStep = 1"
                                 class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition duration-200"
                             >
@@ -438,7 +435,7 @@
                                 </svg>
                                 Back
                             </button>
-                            
+
                             <button
                                 type="submit"
                                 class="bg-gradient-to-r from-[#28a745] to-[#17a2b8] text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -483,7 +480,7 @@
                             </svg>
                             <span class="ml-2">Google</span>
                         </a>
-                        
+
                         <a href="{{ route('social.redirect', 'facebook') }}" class="w-full inline-flex justify-center items-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition duration-200">
                             <svg class="h-5 w-5" fill="#1877F2" viewBox="0 0 24 24">
                                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -495,9 +492,9 @@
             </div>
 
             <p class="text-center text-sm text-gray-600 mt-8">
-                By creating an account, you agree to our 
-                <a href="#" class="font-medium text-blue-600 hover:text-blue-500">Terms of Service</a> 
-                and 
+                By creating an account, you agree to our
+                <a href="#" class="font-medium text-blue-600 hover:text-blue-500">Terms of Service</a>
+                and
                 <a href="#" class="font-medium text-blue-600 hover:text-blue-500">Privacy Policy</a>
             </p>
         </div>

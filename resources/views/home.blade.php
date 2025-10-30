@@ -42,7 +42,7 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-
+you 
         /* Enhanced animations */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }

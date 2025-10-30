@@ -14,105 +14,46 @@ use Filament\Panel;
 
 class User extends Authenticatable implements FilamentUser
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, Billable;
+    use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
-        'username',
         'email',
         'password',
-        'user_type',
-        'gender',
-        'age',
-        'height',
-        'weight',
-        'fitness_level',
-        'activity_level',
-        'fitness_goals',
-        'profile_picture',
-        'preferences',
-        'provider_id',
-        'provider_name',
-        'provider_token',
-        'needs_profile_completion',
-        'email_verified_at',
+        'phone',
+        'role',
+        'status',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function client()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'preferences' => 'array',
-            'fitness_goals' => 'array',
-            'needs_profile_completion' => 'boolean',
-        ];
+        return $this->hasOne(Client::class);
     }
 
-    /**
-     * Relationships
-     */
-    public function workouts()
+    public function trainer()
     {
-        return $this->hasMany(Workout::class);
+        return $this->hasOne(Trainer::class);
     }
 
-    public function nutritionEntries()
+    public function programs()
     {
-        return $this->hasMany(NutritionEntry::class);
+        return $this->hasMany(Program::class, 'trainer_id');
     }
 
-    public function progressLogs()
+    public function messagesSent()
     {
-        return $this->hasMany(ProgressLog::class);
+        return $this->hasMany(Message::class, 'sender_id');
     }
 
-    public function clientProfile()
+    public function messagesReceived()
     {
-        return $this->hasOne(ClientProfile::class);
+        return $this->hasMany(Message::class, 'receiver_id');
     }
-
-    public function trainerProfile()
-    {
-        return $this->hasOne(TrainerProfile::class);
-    }
-
-    public function adminProfile()
-    {
-        return $this->hasOne(AdminProfile::class);
-    }
-
-    public function notifications()
-    {
-        return $this->hasMany(Notification::class);
-    }
-
-    public function notificationPreferences()
-    {
-        return $this->hasMany(NotificationPreference::class);
-    }
-
     /**
      * Helper methods
      */
@@ -130,67 +71,18 @@ public function getUserName(): string
     }
 
 
-    public function getBmiAttribute()
-    {
-        if ($this->height && $this->weight) {
-            $heightInMeters = $this->height / 100;
-            return round($this->weight / ($heightInMeters * $heightInMeters), 2);
-        }
-        return null;
-    }
+    public function isAdmin(): bool
+{
+    return $this->role === 'admin';
+}
+public function isTrainer(): bool
+{
+    return $this->role === 'trainer';
+}
 
-    public function getBmrAttribute()
-    {
-        if ($this->age && $this->height && $this->weight && $this->gender) {
-            $heightInCm = $this->height;
-            $weightInKg = $this->weight;
-            $age = $this->age;
+public function isClient(): bool
+{
+    return $this->role === 'client';
+}
 
-            if ($this->gender === 'male') {
-                // Mifflin-St Jeor Equation for men: BMR = 10 * weight + 6.25 * height - 5 * age + 5
-                return round(10 * $weightInKg + 6.25 * $heightInCm - 5 * $age + 5, 2);
-            } elseif ($this->gender === 'female') {
-                // Mifflin-St Jeor Equation for women: BMR = 10 * weight + 6.25 * height - 5 * age - 161
-                return round(10 * $weightInKg + 6.25 * $heightInCm - 5 * $age - 161, 2);
-            }
-        }
-        return null;
-    }
-
-    public function isAdmin()
-    {
-        return $this->user_type === 'admin';
-    }
-
-    /**
-     * Verify admin has proper privileges and active status
-     */
-    public function hasAdminPrivileges()
-    {
-        if (!$this->isAdmin()) {
-            return false;
-        }
-
-        // Check if admin profile exists and is active
-        if (!$this->adminProfile || $this->adminProfile->status !== 'active') {
-            return false;
-        }
-
-        return true;
-    }
-
-    public function isTrainer()
-    {
-        return $this->user_type === 'trainer';
-    }
-
-    public function isClient()
-    {
-        return $this->user_type === 'client';
-    }
-
-    public function hasSocialProvider()
-    {
-        return !empty($this->provider_name);
-    }
 }

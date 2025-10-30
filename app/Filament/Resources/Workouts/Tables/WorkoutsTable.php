@@ -14,38 +14,10 @@ class WorkoutsTable
     {
         return $table
             ->columns([
-                TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('name')
+                TextColumn::make('title')
                     ->searchable(),
-                TextColumn::make('type')
-                    ->badge(),
-                TextColumn::make('difficulty')
-                    ->badge(),
-                TextColumn::make('duration_minutes')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('calories_burned')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('met_value')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('workout_date')
-                    ->date()
-                    ->sortable(),
-                TextColumn::make('start_time')
-                    ->time()
-                    ->sortable(),
-                TextColumn::make('end_time')
-                    ->time()
-                    ->sortable(),
-                TextColumn::make('status')
-                    ->badge(),
-                TextColumn::make('week_number')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('video_link')
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -55,6 +27,9 @@ class WorkoutsTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('program_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('day_number')
                     ->numeric()
                     ->sortable(),
             ])

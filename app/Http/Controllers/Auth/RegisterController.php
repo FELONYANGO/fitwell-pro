@@ -71,8 +71,7 @@ class RegisterController extends Controller
 
             // Create the user
             $user = User::create([
-                'first_name' => $validated['first_name'],
-                'last_name' => $validated['last_name'],
+                'name' => trim($validated['first_name'] . ' ' . $validated['last_name']),
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
                 'user_type' => $validated['user_type'],
@@ -137,7 +136,7 @@ class RegisterController extends Controller
 
         } catch (\Exception $e) {
             \DB::rollBack();
-            
+
             \Log::error('User registration failed', [
                 'email' => $request->email,
                 'error' => $e->getMessage(),
@@ -156,7 +155,7 @@ class RegisterController extends Controller
     public function showProfileCompletion()
     {
         $user = Auth::user();
-        
+
         if (!$user) {
             return redirect('/login');
         }
@@ -170,7 +169,7 @@ class RegisterController extends Controller
     public function completeProfile(Request $request)
     {
         $user = Auth::user();
-        
+
         $request->validate([
             'user_type' => ['required', 'in:client,trainer'],
             'date_of_birth' => ['nullable', 'date', 'before:today'],
@@ -184,7 +183,7 @@ class RegisterController extends Controller
         $user->update($request->only([
             'user_type',
             'date_of_birth',
-            'gender', 
+            'gender',
             'height',
             'weight',
             'activity_level',
