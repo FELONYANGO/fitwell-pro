@@ -1,74 +1,40 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\SocialAuthController;
-use App\Http\Controllers\Auth\OtpVerificationController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Public Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
-// Public routes
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
-// Stripe Webhook (must be outside auth middleware and CSRF protection)
-Route::post('/stripe/webhook', [\App\Http\Controllers\PaymentController::class, 'webhook'])->name('stripe.webhook');
+// Registration
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register.show');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+// Login
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+
+// Logout (must be POST)
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /*
 |--------------------------------------------------------------------------
-| Authentication Routes
-|--------------------------------------------------------------------------
-*/
-
-Route::middleware('guest')->group(function () {
-    // Login
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'login']);
-
-    // Registration
-    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register', [RegisterController::class, 'register']);
-
-    // Social Authentication (Google and Facebook)
-    Route::get('/auth/{provider}/redirect', [SocialAuthController::class, 'redirect'])
-         ->name('social.redirect')
-         ->where('provider', 'google|facebook');
-    Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])
-         ->name('social.callback')
-         ->where('provider', 'google|facebook');
-
-    // OTP Verification
-    Route::get('/verify-otp', [OtpVerificationController::class, 'showVerificationForm'])->name('verify.otp.form');
-    Route::post('/verify-otp', [OtpVerificationController::class, 'verifyOtp'])->name('verify.otp');
-    Route::post('/send-otp', [OtpVerificationController::class, 'sendOtp'])->name('send.otp');
-});
-
-/*
-|--------------------------------------------------------------------------
-| Protected Routes (All Authenticated Users)
+| Authenticated Routes
 |--------------------------------------------------------------------------
 */
 
 Route::middleware('auth')->group(function () {
-    // Profile Completion (for social login users)
-    Route::get('/profile/complete', [RegisterController::class, 'showProfileCompletion'])->name('profile.complete');
-    Route::post('/profile/complete', [RegisterController::class, 'completeProfile']);
-
-    // Logout
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     // Dashboard - Role-based redirect
     Route::get('/dashboard', function() {
@@ -76,15 +42,18 @@ Route::middleware('auth')->group(function () {
 
         if ($user->isTrainer()) {
             return redirect()->route('trainer.dashboard');
-        } elseif ($user->isAdmin()) {
-            return redirect()->route('admin.dashboard');
-        } else {
+        }
+        else {
             return redirect()->route('client.dashboard');
         }
     })->name('dashboard');
 
-    // Notifications (shared across all user types)
-    Route::controller(NotificationController::class)->prefix('notifications')->name('notifications.')->group(function () {
+    // Profile completion (for social login users)
+    Route::get('/profile/complete', [AuthController::class, 'showProfileCompletion'])->name('profile.complete');
+    Route::post('/profile/complete', [AuthController::class, 'completeProfile'])->name('profile.complete.post');
+
+    // Notifications
+    Route::prefix('notifications')->name('notifications.')->controller(NotificationController::class)->group(function () {
         Route::get('/', 'showNotificationsPage')->name('index');
         Route::get('/all', 'getAll')->name('all');
         Route::get('/unread-count', 'unreadCount')->name('unread-count');
