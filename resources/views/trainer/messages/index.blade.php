@@ -1,4 +1,4 @@
-﻿@extends('layouts.trainer')
+﻿{{-- @extends('layouts.trainer')
 
 @section('title', $program->name . ' - Nutrition Plan')
 @section('page-title', $program->name)
@@ -87,7 +87,7 @@
                 @php
                     $dayMeals = $program->nutritionPlan ? $program->nutritionPlan->getMealsByDay($day) : collect();
                 @endphp
-                
+
                 @if($dayMeals->count() > 0)
                     <div class="row g-3">
                         @foreach($dayMeals as $meal)
@@ -107,17 +107,17 @@
                                             <small class="text-muted">{{ $meal->meal_time }}</small>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="mb-2">
                                         <small class="text-muted">{{ $meal->getMacrosSummary() }}</small>
                                     </div>
-                                    
+
                                     @if($meal->ingredients && count($meal->ingredients) > 0)
                                     <div class="mb-2">
                                         <small><strong><i class="bi bi-basket"></i> Ingredients:</strong> {{ count($meal->ingredients) }} items</small>
                                         <div class="small text-muted mt-1">
                                             @foreach(array_slice($meal->ingredients, 0, 3) as $ingredient)
-                                            <div>• {{ $ingredient['name'] ?? 'Unknown' }} 
+                                            <div>• {{ $ingredient['name'] ?? 'Unknown' }}
                                                 @if(isset($ingredient['quantity']) && isset($ingredient['unit']))
                                                 ({{ $ingredient['quantity'] }}{{ $ingredient['unit'] }})
                                                 @endif
@@ -129,19 +129,19 @@
                                         </div>
                                     </div>
                                     @endif
-                                    
+
                                     @if($meal->preparation_instructions)
                                     <div class="mb-2">
                                         <small class="text-muted"><i class="bi bi-card-text"></i> {{ Str::limit($meal->preparation_instructions, 60) }}</small>
                                     </div>
                                     @endif
-                                    
+
                                     @if($meal->notes)
                                     <div class="mb-2">
                                         <small class="text-warning"><i class="bi bi-info-circle"></i> {{ Str::limit($meal->notes, 50) }}</small>
                                     </div>
                                     @endif
-                                    
+
                                     <div class="btn-group btn-group-sm w-100">
                                         <button class="btn btn-outline-primary" @click="editMeal({{ $meal->id }})">
                                             <i class="bi bi-pencil"></i> Edit
@@ -186,7 +186,7 @@
                         <div class="row g-3">
                             <!-- Basic Information -->
                             <div class="col-12"><h6 class="text-primary mb-0"><i class="bi bi-info-circle me-2"></i>Basic Information</h6><hr></div>
-                            
+
                             <div class="col-md-6">
                                 <label for="meal_name" class="form-label">Meal Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="meal_name" name="name" placeholder="e.g., Protein-Packed Breakfast Bowl" required>
@@ -203,7 +203,7 @@
                                 <label for="meal_time" class="form-label">Time</label>
                                 <input type="time" class="form-control" id="meal_time" name="meal_time" value="07:00">
                             </div>
-                            
+
                             <div class="col-md-6">
                                 <label for="meal_type" class="form-label">Meal Type <span class="text-danger">*</span></label>
                                 <select class="form-select" id="meal_type" name="meal_type" required>
@@ -223,10 +223,10 @@
                                 <label for="prep_time_minutes" class="form-label">Prep Time (min)</label>
                                 <input type="number" class="form-control" id="prep_time_minutes" name="prep_time_minutes" min="0" placeholder="e.g., 15">
                             </div>
-                            
+
                             <!-- Macronutrients -->
                             <div class="col-12 mt-3"><h6 class="text-primary mb-0"><i class="bi bi-pie-chart me-2"></i>Macronutrients (grams)</h6><hr></div>
-                            
+
                             <div class="col-md-3">
                                 <label for="protein" class="form-label">Protein <span class="text-danger">*</span></label>
                                 <input type="number" class="form-control" id="protein" name="macros[protein]" min="0" step="0.1" placeholder="e.g., 30" required>
@@ -243,33 +243,33 @@
                                 <label for="fiber" class="form-label">Fiber</label>
                                 <input type="number" class="form-control" id="fiber" name="macros[fiber]" min="0" step="0.1" placeholder="e.g., 8">
                             </div>
-                            
+
                             <!-- Ingredients -->
                             <div class="col-12 mt-3">
                                 <h6 class="text-primary mb-2"><i class="bi bi-basket me-2"></i>Ingredients (Optional)</h6>
                                 <hr>
                             </div>
-                            
+
                             <div class="col-12" x-data="{ ingredients: [{ name: '', quantity: '', unit: 'g' }] }">
                                 <template x-for="(ingredient, index) in ingredients" :key="index">
                                     <div class="row g-2 mb-2">
                                         <div class="col-md-5">
-                                            <input type="text" 
-                                                   class="form-control form-control-sm" 
-                                                   :name="'ingredients[' + index + '][name]'" 
+                                            <input type="text"
+                                                   class="form-control form-control-sm"
+                                                   :name="'ingredients[' + index + '][name]'"
                                                    x-model="ingredient.name"
                                                    placeholder="Ingredient name (e.g., Chicken breast)">
                                         </div>
                                         <div class="col-md-3">
-                                            <input type="number" 
-                                                   class="form-control form-control-sm" 
-                                                   :name="'ingredients[' + index + '][quantity]'" 
+                                            <input type="number"
+                                                   class="form-control form-control-sm"
+                                                   :name="'ingredients[' + index + '][quantity]'"
                                                    x-model="ingredient.quantity"
                                                    step="0.1"
                                                    placeholder="Quantity">
                                         </div>
                                         <div class="col-md-2">
-                                            <select class="form-select form-select-sm" 
+                                            <select class="form-select form-select-sm"
                                                     :name="'ingredients[' + index + '][unit]'"
                                                     x-model="ingredient.unit">
                                                 <option value="g">g</option>
@@ -287,8 +287,8 @@
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" 
-                                                    class="btn btn-sm btn-outline-danger w-100" 
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-danger w-100"
                                                     @click="ingredients.splice(index, 1)"
                                                     x-show="ingredients.length > 1">
                                                 <i class="bi bi-trash"></i>
@@ -296,30 +296,30 @@
                                         </div>
                                     </div>
                                 </template>
-                                <button type="button" 
-                                        class="btn btn-sm btn-outline-success" 
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-success"
                                         @click="ingredients.push({ name: '', quantity: '', unit: 'g' })">
                                     <i class="bi bi-plus-circle me-1"></i>Add Ingredient
                                 </button>
                             </div>
-                            
+
                             <!-- Preparation Instructions -->
                             <div class="col-12 mt-3"><h6 class="text-primary mb-0"><i class="bi bi-card-text me-2"></i>Instructions & Notes</h6><hr></div>
-                            
+
                             <div class="col-12">
                                 <label for="preparation_instructions" class="form-label">Preparation Instructions</label>
-                                <textarea class="form-control" 
-                                          id="preparation_instructions" 
-                                          name="preparation_instructions" 
+                                <textarea class="form-control"
+                                          id="preparation_instructions"
+                                          name="preparation_instructions"
                                           rows="4"
                                           placeholder="Step-by-step cooking instructions...&#10;1. Heat pan on medium heat&#10;2. Add ingredients&#10;3. Cook for 10 minutes"></textarea>
                             </div>
-                            
+
                             <div class="col-12">
                                 <label for="notes" class="form-label">Additional Notes</label>
-                                <textarea class="form-control" 
-                                          id="notes" 
-                                          name="notes" 
+                                <textarea class="form-control"
+                                          id="notes"
+                                          name="notes"
                                           rows="2"
                                           placeholder="Any special notes, dietary warnings, or tips..."></textarea>
                             </div>
@@ -362,4 +362,14 @@ function nutritionPlanManager() {
     }
 }
 </script>
-@endpush
+@endpush --}}
+@extends('layouts.app')
+
+@section('title', 'Trainer Messages')
+
+@section('content')
+    <div class="p-8">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">Messages</h1>
+        <p class="text-gray-600">This page will list all clients assigned to the trainer.</p>
+    </div>
+@endsection

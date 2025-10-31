@@ -1,4 +1,4 @@
-@extends('layouts.trainer')
+{{-- @extends('layouts.trainer')
 
 @section('title', 'Analytics Dashboard')
 
@@ -38,7 +38,7 @@
                             </div>
                             <div class="mt-2">
                                 <small class="text-success">
-                                    <i class="fas fa-arrow-up"></i> 
+                                    <i class="fas fa-arrow-up"></i>
                                     {{ $analytics['revenue_growth'] ?? 0 }}% vs last period
                                 </small>
                             </div>
@@ -64,7 +64,7 @@
                             </div>
                             <div class="mt-2">
                                 <small class="text-success">
-                                    <i class="fas fa-arrow-up"></i> 
+                                    <i class="fas fa-arrow-up"></i>
                                     {{ $analytics['sessions_growth'] ?? 0 }}% vs last period
                                 </small>
                             </div>
@@ -90,7 +90,7 @@
                             </div>
                             <div class="mt-2">
                                 <small class="text-info">
-                                    <i class="fas fa-user-plus"></i> 
+                                    <i class="fas fa-user-plus"></i>
                                     {{ $analytics['new_clients'] ?? 0 }} new this period
                                 </small>
                             </div>
@@ -116,7 +116,7 @@
                             </div>
                             <div class="mt-2">
                                 <small class="text-warning">
-                                    <i class="fas fa-chart-line"></i> 
+                                    <i class="fas fa-chart-line"></i>
                                     Per session
                                 </small>
                             </div>
@@ -287,7 +287,7 @@
                                     <svg width="80" height="80" class="circular-progress">
                                         <circle cx="40" cy="40" r="35" stroke="#e9ecef" stroke-width="8" fill="none"/>
                                         <circle cx="40" cy="40" r="35" stroke="#28a745" stroke-width="8" fill="none"
-                                                stroke-dasharray="{{ 2 * pi() * 35 }}" 
+                                                stroke-dasharray="{{ 2 * pi() * 35 }}"
                                                 stroke-dashoffset="{{ 2 * pi() * 35 * (1 - ($analytics['revenue_goal_progress'] ?? 0) / 100) }}"
                                                 transform="rotate(-90 40 40)"/>
                                     </svg>
@@ -308,7 +308,7 @@
                                     <svg width="80" height="80" class="circular-progress">
                                         <circle cx="40" cy="40" r="35" stroke="#e9ecef" stroke-width="8" fill="none"/>
                                         <circle cx="40" cy="40" r="35" stroke="#007bff" stroke-width="8" fill="none"
-                                                stroke-dasharray="{{ 2 * pi() * 35 }}" 
+                                                stroke-dasharray="{{ 2 * pi() * 35 }}"
                                                 stroke-dashoffset="{{ 2 * pi() * 35 * (1 - ($analytics['sessions_goal_progress'] ?? 0) / 100) }}"
                                                 transform="rotate(-90 40 40)"/>
                                     </svg>
@@ -329,7 +329,7 @@
                                     <svg width="80" height="80" class="circular-progress">
                                         <circle cx="40" cy="40" r="35" stroke="#e9ecef" stroke-width="8" fill="none"/>
                                         <circle cx="40" cy="40" r="35" stroke="#17a2b8" stroke-width="8" fill="none"
-                                                stroke-dasharray="{{ 2 * pi() * 35 }}" 
+                                                stroke-dasharray="{{ 2 * pi() * 35 }}"
                                                 stroke-dashoffset="{{ 2 * pi() * 35 * (1 - ($analytics['clients_goal_progress'] ?? 0) / 100) }}"
                                                 transform="rotate(-90 40 40)"/>
                                     </svg>
@@ -350,7 +350,7 @@
                                     <svg width="80" height="80" class="circular-progress">
                                         <circle cx="40" cy="40" r="35" stroke="#e9ecef" stroke-width="8" fill="none"/>
                                         <circle cx="40" cy="40" r="35" stroke="#ffc107" stroke-width="8" fill="none"
-                                                stroke-dasharray="{{ 2 * pi() * 35 }}" 
+                                                stroke-dasharray="{{ 2 * pi() * 35 }}"
                                                 stroke-dashoffset="{{ 2 * pi() * 35 * (1 - ($analytics['programs_goal_progress'] ?? 0) / 100) }}"
                                                 transform="rotate(-90 40 40)"/>
                                     </svg>
@@ -472,4 +472,14 @@
 }
 </style>
 @endpush
+@endsection --}}
+@extends('layouts.app')
+
+@section('title', 'Reviews')
+
+@section('content')
+    <div class="p-8">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">Trainer Reviews</h1>
+        <p class="text-gray-600">This page will list all reviews for the trainer.</p>
+    </div>
 @endsection

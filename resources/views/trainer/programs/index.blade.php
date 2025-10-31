@@ -1,4 +1,4 @@
-@extends('layouts.trainer')
+{{-- @extends('layouts.trainer')
 
 @section('title', 'Training Programs')
 @section('page-title', 'Training Programs')
@@ -143,7 +143,7 @@
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <div class="flex-grow-1">
                                     <h5 class="card-title mb-1">{{ $program['name'] }}</h5>
-                                    <span class="badge 
+                                    <span class="badge
                                         @if($program['difficulty_level'] == 'beginner') bg-success
                                         @elseif($program['difficulty_level'] == 'intermediate') bg-warning
                                         @else bg-danger @endif
@@ -208,7 +208,7 @@
 
                             <!-- Status -->
                             <div class="mb-3">
-                                <span class="badge 
+                                <span class="badge
                                     @if($program['status'] == 'active') bg-success
                                     @else bg-secondary @endif">
                                     {{ ucfirst($program['status']) }}
@@ -220,12 +220,12 @@
 
                             <!-- Actions -->
                             <div class="d-grid gap-2">
-                                <a href="{{ route('trainer.programs.show', $program['id']) }}" 
+                                <a href="{{ route('trainer.programs.show', $program['id']) }}"
                                    class="btn trainer-btn-primary btn-sm">
                                     <i class="bi bi-eye me-1"></i>View Program
                                 </a>
                                 <div class="btn-group">
-                                    <a href="{{ route('trainer.programs.edit', $program['id']) }}" 
+                                    <a href="{{ route('trainer.programs.edit', $program['id']) }}"
                                        class="btn btn-outline-secondary btn-sm">
                                         <i class="bi bi-pencil"></i>
                                     </a>
@@ -335,4 +335,14 @@
         });
     });
 </script>
-@endpush
+@endpush --}}
+@extends('layouts.app')
+
+@section('title', 'Programs')
+
+@section('content')
+    <div class="p-8">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">Trainer Programs</h1>
+        <p class="text-gray-600">This page will list all programs created by the trainer.</p>
+    </div>
+@endsection

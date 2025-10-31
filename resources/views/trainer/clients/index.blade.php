@@ -1,4 +1,4 @@
-@extends('layouts.trainer')
+{{-- @extends('layouts.trainer')
 
 @section('title', 'My Clients')
 @section('page-title', 'My Clients')
@@ -139,7 +139,7 @@
                             <!-- Client Header -->
                             <div class="d-flex align-items-center mb-3">
                                 <div class="me-3">
-                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
                                          style="width: 50px; height: 50px; font-size: 1.2rem;">
                                         {{ substr($client['name'], 0, 1) }}
                                     </div>
@@ -190,7 +190,7 @@
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <small class="text-muted">Progress</small>
-                                    <span class="badge 
+                                    <span class="badge
                                         @if($client['progress'] == 'excellent') bg-success
                                         @elseif($client['progress'] == 'improving') bg-info
                                         @else bg-warning @endif">
@@ -198,11 +198,11 @@
                                     </span>
                                 </div>
                                 <div class="progress" style="height: 6px;">
-                                    <div class="progress-bar 
+                                    <div class="progress-bar
                                         @if($client['progress'] == 'excellent') bg-success
                                         @elseif($client['progress'] == 'improving') bg-info
-                                        @else bg-warning @endif" 
-                                        style="width: 
+                                        @else bg-warning @endif"
+                                        style="width:
                                         @if($client['progress'] == 'excellent') 90%
                                         @elseif($client['progress'] == 'improving') 70%
                                         @else 50% @endif">
@@ -240,7 +240,7 @@
 
                             <!-- Action Buttons -->
                             <div class="d-grid gap-2">
-                                <a href="{{ route('trainer.clients.show', $client['id']) }}" 
+                                <a href="{{ route('trainer.clients.show', $client['id']) }}"
                                    class="btn trainer-btn-primary btn-sm">
                                     <i class="bi bi-eye me-1"></i>View Details
                                 </a>
@@ -312,4 +312,14 @@
         });
     });
 </script>
-@endpush
+@endpush --}}
+@extends('layouts.app')
+
+@section('title', 'Trainer Clients')
+
+@section('content')
+    <div class="p-8">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">Trainer Clients</h1>
+        <p class="text-gray-600">This page will list all clients assigned to the trainer.</p>
+    </div>
+@endsection

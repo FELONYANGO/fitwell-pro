@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('program_assignments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained('client_profiles')->onDelete('cascade');
+            $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
             $table->foreignId('program_id')->constrained('programs')->onDelete('cascade');
             $table->date('assigned_date');
             $table->date('start_date')->nullable();

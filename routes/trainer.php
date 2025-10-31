@@ -25,8 +25,26 @@ Route::middleware(['web', 'auth', 'role:trainer'])->prefix('trainer')->name('tra
     Route::post('/programs/{program}/workouts', [WorkoutController::class, 'store'])->name('workouts.store');
 
     // Clients
-    Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
-
-//     // Earnings
-//     Route::get('/earnings', [EarningController::class, 'index'])->name('earnings.index');
+    // Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+    Route::get('/clients', function () {
+        return view('trainer.clients.index');
+    })->name('clients.index');
+    // Reviews
+Route::get('/reviews', function () {
+    return view('trainer.reviews.index');
+})->name('reviews.index');
+// Reviews
+Route::get('/reviews', function () {
+    return view('trainer.reviews.index');
+})->name('reviews.index');
+    // Messages
+    Route::get('/messages', function () {
+        return view('trainer.messages.index');
+    })->name('messages.index');
+    // profile
+    Route::get('/profile', function () {
+        return view('trainer.profile.index');
+    })->name('profile.index');  
+    // Earnings
+    // Route::get('/earnings', [EarningController::class, 'index'])->name('earnings.index');
 });
