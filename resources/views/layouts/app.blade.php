@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -10,7 +10,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-    
+
     <!-- Heroicons -->
     <script src="https://unpkg.com/@heroicons/ui@2.0.0/dist/heroicons-ui.min.js" defer></script>
 
@@ -24,13 +24,13 @@
             --trainer-light: #f8f9fa;
             --trainer-dark: #343a40;
         }
-        
+
         .trainer-sidebar {
             background: linear-gradient(135deg, var(--trainer-primary), var(--trainer-primary-dark));
             min-height: 100vh;
             box-shadow: 2px 0 10px rgba(0,0,0,0.1);
         }
-        
+
         .trainer-sidebar .nav-link {
             color: rgba(255,255,255,0.9);
             padding: 12px 20px;
@@ -38,39 +38,39 @@
             border-radius: 8px;
             transition: all 0.3s ease;
         }
-        
+
         .trainer-sidebar .nav-link:hover,
         .trainer-sidebar .nav-link.active {
             background-color: rgba(255,255,255,0.1);
             color: white;
             transform: translateX(5px);
         }
-        
+
         .trainer-card {
             border: none;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
         }
-        
+
         .trainer-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .trainer-stat-card {
             background: linear-gradient(135deg, var(--trainer-primary), var(--trainer-secondary));
             color: white;
             border-radius: 15px;
             padding: 25px;
         }
-        
+
         .trainer-btn-primary {
             background: var(--trainer-primary);
             border-color: var(--trainer-primary);
             border-radius: 8px;
             padding: 10px 20px;
         }
-        
+
         .trainer-btn-primary:hover {
             background: var(--trainer-primary-dark);
             border-color: var(--trainer-primary-dark);
@@ -85,17 +85,17 @@
     </script>
     <div id="app" x-data="{ sidebarOpen: false }" class="min-h-screen">
         <!-- Sidebar -->
-        <div x-show="sidebarOpen" 
+        <div x-show="sidebarOpen"
              x-transition:enter="transition-opacity ease-linear duration-300"
              x-transition:enter-start="opacity-0"
              x-transition:enter-end="opacity-100"
              x-transition:leave="transition-opacity ease-linear duration-300"
              x-transition:leave-start="opacity-100"
              x-transition:leave-end="opacity-0"
-             class="fixed inset-0 z-40 flex lg:hidden" 
+             class="fixed inset-0 z-40 flex lg:hidden"
              @click.away="sidebarOpen = false">
             <div class="fixed inset-0 bg-black bg-opacity-25"></div>
-            
+
             <div class="relative flex flex-col flex-1 w-full max-w-xs bg-white">
                 @include('components.sidebar')
             </div>
@@ -110,8 +110,8 @@
         <div class="lg:pl-72">
             <!-- Top navigation -->
             <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
-                <button type="button" 
-                        class="-m-2.5 p-2.5 text-gray-700 lg:hidden" 
+                <button type="button"
+                        class="-m-2.5 p-2.5 text-gray-700 lg:hidden"
                         @click="sidebarOpen = true">
                     <span class="sr-only">Open sidebar</span>
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -124,8 +124,8 @@
                 <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
                     <!-- Search bar -->
                     <div class="relative flex flex-1">
-                        <input type="search" 
-                               placeholder="Search workouts, meals, progress..." 
+                        <input type="search"
+                               placeholder="Search workouts, meals, progress..."
                                class="block w-full rounded-md border-0 bg-gray-50 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-600 sm:text-sm sm:leading-6">
                         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                             <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
@@ -143,12 +143,12 @@
 
                         <!-- Profile dropdown -->
                         <div class="relative" x-data="{ profileOpen: false }">
-                            <button type="button" 
+                            <button type="button"
                                     class="-m-1.5 flex items-center p-1.5"
                                     @click="profileOpen = !profileOpen">
                                 <span class="sr-only">Open user menu</span>
-                                <img class="h-8 w-8 rounded-full bg-gray-50" 
-                                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
+                                <img class="h-8 w-8 rounded-full bg-gray-50"
+                                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                                      alt="Profile">
                                 <span class="hidden lg:flex lg:items-center">
                                     <span class="ml-4 text-sm font-semibold leading-6 text-gray-900">John Doe</span>
@@ -191,7 +191,120 @@
             </main>
         </div>
     </div>
-    
+
     @stack('scripts')
+</body>
+</html> --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'FitWell Pro')</title>
+
+    {{-- Tailwind CSS --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Optional: Font & Icons --}}
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-inter min-h-screen flex">
+
+    {{-- Sidebar --}}
+    <aside class="w-64 bg-white shadow-md hidden md:flex flex-col justify-between">
+        <div>
+            <div class="px-6 py-4 border-b">
+                <h1 class="text-xl font-bold text-blue-600">FitWell Pro</h1>
+            </div>
+
+            <nav class="mt-4 flex-1 px-4 space-y-2">
+                <a href="{{ route('dashboard') }}"
+                   class="block px-4 py-2 rounded-lg hover:bg-blue-50 {{ request()->routeIs('dashboard') ? 'bg-blue-100 text-blue-700' : 'text-gray-700' }}">
+                    🏠 Dashboard
+                </a>
+
+                {{-- Conditional Links by Role --}}
+                @if(Auth::check() && Auth::user()->isClient())
+                    <a href="{{ route('client.programs.index') }}"
+                       class="block px-4 py-2 rounded-lg hover:bg-blue-50 {{ request()->routeIs('client.programs.*') ? 'bg-blue-100 text-blue-700' : 'text-gray-700' }}">
+                        💪 My Programs
+                    </a>
+
+                    {{-- <a href="{{ route('client.payments.index') }}"
+                       class="block px-4 py-2 rounded-lg hover:bg-blue-50 {{ request()->routeIs('client.payments.*') ? 'bg-blue-100 text-blue-700' : 'text-gray-700' }}">
+                        💳 Payments
+                    </a> --}}
+
+                    {{-- <a href="{{ route('client.progress.index') }}"
+                       class="block px-4 py-2 rounded-lg hover:bg-blue-50 {{ request()->routeIs('client.progress.*') ? 'bg-blue-100 text-blue-700' : 'text-gray-700' }}">
+                        📈 Progress
+                    </a> --}}
+                @elseif(Auth::check() && Auth::user()->isTrainer())
+                    <a href="{{ route('trainer.programs.index') }}"
+                       class="block px-4 py-2 rounded-lg hover:bg-blue-50 {{ request()->routeIs('trainer.programs.*') ? 'bg-blue-100 text-blue-700' : 'text-gray-700' }}">
+                        🧑‍🏫 Manage Programs
+                    </a>
+
+                    <a href="{{ route('trainer.clients.index') }}"
+                       class="block px-4 py-2 rounded-lg hover:bg-blue-50 {{ request()->routeIs('trainer.clients.*') ? 'bg-blue-100 text-blue-700' : 'text-gray-700' }}">
+                        👥 My Clients
+                    </a>
+                @endif
+
+                <a href="{{ route('logout') }}"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                   class="block px-4 py-2 rounded-lg hover:bg-red-50 text-red-600">
+                    🚪 Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                    @csrf
+                </form>
+            </nav>
+        </div>
+
+        {{-- Footer --}}
+        <div class="px-6 py-4 border-t text-sm text-gray-500">
+            Logged in as <span class="font-semibold">{{ Auth::user()->name }}</span><br>
+            <span class="capitalize text-gray-400">{{ Auth::user()->role }}</span>
+        </div>
+    </aside>
+
+    {{-- Main Content --}}
+    <main class="flex-1 p-6">
+        {{-- Navbar for mobile --}}
+        <div class="md:hidden flex justify-between items-center mb-4">
+            <h1 class="text-lg font-semibold text-gray-800">FitWell Pro</h1>
+            <button id="menu-toggle" class="p-2 bg-blue-600 text-white rounded-md">☰</button>
+        </div>
+
+        {{-- Flash messages --}}
+        @if(session('success'))
+            <div class="mb-4 p-3 bg-green-100 text-green-700 rounded-lg">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
+                <ul class="list-disc pl-5">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        {{-- Page Content --}}
+        <div>
+            @yield('content')
+        </div>
+    </main>
+
+    {{-- Optional JS for sidebar toggle --}}
+    <script>
+        document.getElementById('menu-toggle')?.addEventListener('click', () => {
+            document.querySelector('aside').classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>

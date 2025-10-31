@@ -1,4 +1,4 @@
-@extends('layouts.trainer')
+{{-- @extends('layouts.trainer')
 
 @section('title', 'Trainer Dashboard')
 @section('page-title', 'Trainer Dashboard')
@@ -96,7 +96,7 @@
             <div class="card-body">
                 @if(count($todaySchedule) > 0)
                     @foreach($todaySchedule as $session)
-                        <div class="d-flex align-items-center p-3 mb-2 
+                        <div class="d-flex align-items-center p-3 mb-2
                              @if($session['status'] == 'completed') bg-light @else border @endif rounded">
                             <div class="me-3">
                                 <div class="text-center">
@@ -171,16 +171,16 @@
                             <small class="text-muted">Next: {{ $client['nextSession'] }}</small>
                         </div>
                         <div class="text-end">
-                            <span class="badge 
+                            <span class="badge
                                 @if($client['progress'] == 'excellent') bg-success
-                                @elseif($client['progress'] == 'improving') bg-info  
+                                @elseif($client['progress'] == 'improving') bg-info
                                 @else bg-warning @endif">
                                 {{ ucfirst($client['progress']) }}
                             </span>
                         </div>
                     </div>
                 @endforeach
-                
+
                 <div class="text-center mt-3">
                     <a href="{{ route('trainer.clients.index') }}" class="btn btn-sm btn-outline-primary">
                         View All Clients
@@ -253,7 +253,7 @@
                 data: [45, 30, 20, 5],
                 backgroundColor: [
                     '#28a745',
-                    '#17a2b8', 
+                    '#17a2b8',
                     '#ffc107',
                     '#dc3545'
                 ],
@@ -307,4 +307,73 @@
         }
     });
 </script>
-@endpush
+@endpush --}}
+@extends('layouts.app')
+
+@section('title', 'Trainer Dashboard')
+
+@section('content')
+<div class="max-w-7xl mx-auto px-6 py-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Welcome, Coach {{ Auth::user()->name }} 🏋️‍♀️</h1>
+
+    {{-- Stats Summary --}}
+    <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-2xl shadow text-center">
+            <h2 class="text-sm text-gray-500">Active Programs</h2>
+            <p class="text-3xl font-bold text-blue-600">{{ $activeProgramsCount ?? 0 }}</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow text-center">
+            <h2 class="text-sm text-gray-500">Total Clients</h2>
+            <p class="text-3xl font-bold text-green-600">{{ $clientsCount ?? 0 }}</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow text-center">
+            <h2 class="text-sm text-gray-500">Total Earnings</h2>
+            <p class="text-3xl font-bold text-yellow-600">Ksh {{ number_format($earnings ?? 0) }}</p>
+        </div>
+    </div>
+
+    {{-- Recent Programs --}}
+    <div class="bg-white rounded-2xl shadow p-6 mb-8">
+        <h2 class="text-lg font-semibold mb-4 text-gray-700">Your Programs</h2>
+
+        @if($programs->isEmpty())
+            <p class="text-gray-500">You haven’t created any programs yet.</p>
+        @else
+            <div class="overflow-x-auto">
+                <table class="min-w-full border border-gray-200 rounded-lg text-sm">
+                    <thead class="bg-gray-50 text-gray-700">
+                        <tr>
+                            <th class="px-4 py-2 text-left">Title</th>
+                            <th class="px-4 py-2 text-left">Clients</th>
+                            <th class="px-4 py-2 text-left">Status</th>
+                            <th class="px-4 py-2 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($programs as $program)
+                            <tr class="border-t">
+                                <td class="px-4 py-2">{{ $program->title }}</td>
+                                <td class="px-4 py-2">{{ $program->clients->count() }}</td>
+                                <td class="px-4 py-2">{{ ucfirst($program->status) }}</td>
+                                <td class="px-4 py-2 text-right">
+                                    <a href="{{ route('trainer.programs.edit', $program->id) }}" class="text-blue-600 hover:underline">Edit</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
+    </div>
+
+    {{-- Create Button --}}
+    <div class="text-right">
+        <a href="{{ route('trainer.programs.create') }}" class="inline-block bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700">
+            ➕ Create New Program
+        </a>
+    </div>
+</div>
+@endsection
+

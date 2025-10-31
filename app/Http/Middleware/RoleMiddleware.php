@@ -8,21 +8,20 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string  $role
-     * @return mixed
-     */
-    public function handle(Request $request, Closure $next, string $role)
+    public function handle($request, Closure $next, $role)
     {
-        if (!Auth::check() || Auth::user()->user_type !== $role) {
-            // You can customize this response. For example, redirect them or show a 403 page.
-            abort(403, 'Unauthorized action.');
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $user = Auth::user();
+
+        // Adjust this depending on your column name
+        if ($user->role !== $role) {
+            abort(403, 'Unauthorized.');
         }
 
         return $next($request);
     }
 }
+

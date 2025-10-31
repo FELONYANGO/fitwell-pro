@@ -63,9 +63,13 @@ class AuthController extends Controller
             ]);
         }
 
-        // ✅ Auto-login and redirect
-        Auth::login($user);
-        return redirect()->route('dashboard')->with('success', 'Welcome to FitWell Pro!');
+         Auth::login($user);
+
+    // ✅ Role-based redirect
+    return $user->role === 'trainer'
+        ? redirect()->route('trainer.dashboard')->with('success', 'Welcome Trainer!')
+        : redirect()->route('client.dashboard')->with('success', 'Welcome Client!');
+
     }
 
     public function showLogin()
@@ -74,19 +78,24 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->route('dashboard');
-        }
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
 
-        return back()->withErrors(['email' => 'Invalid credentials'])->onlyInput('email');
+        $user = Auth::user();
+        // ✅ Redirect based on role
+        return $user->role === 'trainer'
+            ? redirect()->route('trainer.dashboard')
+            : redirect()->route('client.dashboard');
     }
+
+    return back()->withErrors(['email' => 'Invalid credentials'])->onlyInput('email');
+}
 
     public function logout(Request $request)
     {

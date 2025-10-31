@@ -1,4 +1,4 @@
-@php
+{{-- @php
     $title = 'Dashboard';
 @endphp
 
@@ -58,8 +58,8 @@
     <!-- Enhanced Stats Cards -->
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
         <!-- Today's Workouts -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-xl hover:ring-emerald-300/50 hover:-translate-y-1" 
-             x-data="{ count: 0, animated: false }" 
+        <div class="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-xl hover:ring-emerald-300/50 hover:-translate-y-1"
+             x-data="{ count: 0, animated: false }"
              x-init="setTimeout(() => { count = 2; animated = true; }, 100)">
             <div class="flex items-center justify-between">
                 <div class="flex-shrink-0">
@@ -70,8 +70,8 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <div class="text-3xl font-bold text-gray-900 transition-all duration-700" 
-                         :class="animated ? 'transform scale-110' : ''" 
+                    <div class="text-3xl font-bold text-gray-900 transition-all duration-700"
+                         :class="animated ? 'transform scale-110' : ''"
                          x-text="count"></div>
                     <div class="text-sm font-medium text-gray-500">Today's Workouts</div>
                 </div>
@@ -88,8 +88,8 @@
         </div>
 
         <!-- Calories Burned -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-xl hover:ring-orange-300/50 hover:-translate-y-1" 
-             x-data="{ count: 0, animated: false }" 
+        <div class="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-xl hover:ring-orange-300/50 hover:-translate-y-1"
+             x-data="{ count: 0, animated: false }"
              x-init="setTimeout(() => { count = 450; animated = true; }, 200)">
             <div class="flex items-center justify-between">
                 <div class="flex-shrink-0">
@@ -100,8 +100,8 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <div class="text-3xl font-bold text-gray-900 transition-all duration-700" 
-                         :class="animated ? 'transform scale-110' : ''" 
+                    <div class="text-3xl font-bold text-gray-900 transition-all duration-700"
+                         :class="animated ? 'transform scale-110' : ''"
                          x-text="count"></div>
                     <div class="text-sm font-medium text-gray-500">Calories Burned</div>
                 </div>
@@ -118,8 +118,8 @@
         </div>
 
         <!-- Weekly Goal Progress -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-xl hover:ring-blue-300/50 hover:-translate-y-1" 
-             x-data="{ progress: 0, animated: false }" 
+        <div class="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-xl hover:ring-blue-300/50 hover:-translate-y-1"
+             x-data="{ progress: 0, animated: false }"
              x-init="setTimeout(() => { progress = 68; animated = true; }, 300)">
             <div class="flex items-center justify-between">
                 <div class="flex-shrink-0">
@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <div class="text-3xl font-bold text-gray-900 transition-all duration-700" 
+                    <div class="text-3xl font-bold text-gray-900 transition-all duration-700"
                          :class="animated ? 'transform scale-110' : ''">
                         <span x-text="progress"></span>%
                     </div>
@@ -139,7 +139,7 @@
             </div>
             <div class="mt-4">
                 <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-1000 ease-out" 
+                    <div class="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-1000 ease-out"
                          :style="'width: ' + progress + '%'"></div>
                 </div>
                 <div class="mt-2 flex items-center text-xs text-blue-600">
@@ -150,8 +150,8 @@
         </div>
 
         <!-- Current Streak -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-xl hover:ring-amber-300/50 hover:-translate-y-1" 
-             x-data="{ streak: 0, animated: false }" 
+        <div class="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-xl hover:ring-amber-300/50 hover:-translate-y-1"
+             x-data="{ streak: 0, animated: false }"
              x-init="setTimeout(() => { streak = 12; animated = true; }, 400)">
             <div class="flex items-center justify-between">
                 <div class="flex-shrink-0">
@@ -162,8 +162,8 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <div class="text-3xl font-bold text-gray-900 transition-all duration-700" 
-                         :class="animated ? 'transform scale-110' : ''" 
+                    <div class="text-3xl font-bold text-gray-900 transition-all duration-700"
+                         :class="animated ? 'transform scale-110' : ''"
                          x-text="streak"></div>
                     <div class="text-sm font-medium text-gray-500">Day Streak</div>
                 </div>
@@ -406,4 +406,55 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Enhanced dashboard loaded');
 });
 </script>
+@endsection --}}
+@extends('layouts.app')
+
+@section('title', 'Client Dashboard')
+
+@section('content')
+<div class="max-w-7xl mx-auto px-6 py-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Welcome, {{ Auth::user()->name }} 👋</h1>
+
+    {{-- Active Programs Section --}}
+    <div class="bg-white rounded-2xl shadow p-6 mb-8">
+        <h2 class="text-lg font-semibold mb-4 text-gray-700">Your Active Programs</h2>
+
+        @if($programs->isEmpty())
+            <p class="text-gray-500">You haven’t joined any programs yet.</p>
+        @else
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($programs as $program)
+                    <div class="border rounded-xl shadow-sm p-5 hover:shadow-md transition">
+                        <h3 class="font-bold text-gray-800 text-lg mb-2">{{ $program->title }}</h3>
+                        <p class="text-sm text-gray-600 mb-3">{{ Str::limit($program->description, 100) }}</p>
+                        <p class="text-sm text-gray-500">Trainer: {{ $program->trainer->name }}</p>
+                        <div class="mt-4">
+                            <a href="{{ route('client.programs.show', $program->id) }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                View Program
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </div>
+
+    {{-- Quick Links --}}
+    <div class="grid md:grid-cols-3 gap-6">
+        {{-- <a href="{{ route('client.payments.index') }}" class="block bg-green-50 border border-green-200 text-green-700 rounded-xl p-6 text-center hover:bg-green-100">
+            💳 Payments
+        </a> --}}
+
+        <a href="{{ route('client.progress.update', 1) }}" class="block bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-xl p-6 text-center hover:bg-yellow-100">
+            📈 Progress
+        </a>
+
+        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="block bg-red-50 border border-red-200 text-red-700 rounded-xl p-6 text-center hover:bg-red-100">
+            🚪 Logout
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+            @csrf
+        </form>
+    </div>
+</div>
 @endsection

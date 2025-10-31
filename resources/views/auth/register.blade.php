@@ -459,19 +459,7 @@
                     </div>
                 </form>
 
-                <!-- Social Registration -->
-                <div class="px-8 pb-8">
-                    <div class="relative">
-                        <div class="absolute inset-0 flex items-center">
-                            <div class="w-full border-t border-gray-300"></div>
-                        </div>
-                        <div class="relative flex justify-center text-sm">
-                            <span class="px-4 bg-white text-gray-500 font-medium">Or sign up with</span>
-                        </div>
-                    </div>
-
-
-                </div>
+                
             </div>
 
             <p class="text-center text-sm text-gray-600 mt-8">

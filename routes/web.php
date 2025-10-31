@@ -34,35 +34,49 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 |--------------------------------------------------------------------------
 */
 
+
+
+
 Route::middleware('auth')->group(function () {
 
-    // Dashboard - Role-based redirect
-    Route::get('/dashboard', function() {
+    Route::get('/dashboard', function () {
         $user = Auth::user();
 
-        if ($user->isTrainer()) {
-            return redirect()->route('trainer.dashboard');
+        if (!$user) {
+            return redirect()->route('login');
         }
-        else {
-            return redirect()->route('client.dashboard');
+
+        switch ($user->role) {
+            case 'client':
+                return redirect()->route('client.dashboard');
+            case 'trainer':
+                return redirect()->route('trainer.dashboard');
+            case 'admin':
+                // Redirect to Filament admin panel
+                return redirect('/admin');
+            default:
+                abort(403, 'Unauthorized');
         }
-    })->name('dashboard');
+    })->middleware(['auth'])->name('dashboard');
+
 
     // Profile completion (for social login users)
     Route::get('/profile/complete', [AuthController::class, 'showProfileCompletion'])->name('profile.complete');
     Route::post('/profile/complete', [AuthController::class, 'completeProfile'])->name('profile.complete.post');
 
-    // Notifications
-    Route::prefix('notifications')->name('notifications.')->controller(NotificationController::class)->group(function () {
-        Route::get('/', 'showNotificationsPage')->name('index');
-        Route::get('/all', 'getAll')->name('all');
-        Route::get('/unread-count', 'unreadCount')->name('unread-count');
-        Route::get('/{id}', 'show')->name('show');
-        Route::patch('/{id}/read', 'markAsRead')->name('mark-read');
-        Route::post('/{id}/read', 'markAsRead')->name('mark-read.post');
-        Route::patch('/mark-all-read', 'markAllAsRead')->name('mark-all-read');
-        Route::post('/mark-all-read', 'markAllAsRead')->name('mark-all-read.post');
-        Route::delete('/{id}', 'destroy')->name('destroy');
-        Route::delete('/delete-all', 'deleteAll')->name('delete-all');
-    });
+    // // Notifications
+    // Route::prefix('notifications')->name('notifications.')->controller(NotificationController::class)->group(function () {
+    //     Route::get('/', 'showNotificationsPage')->name('index');
+    //     Route::get('/all', 'getAll')->name('all');
+    //     Route::get('/unread-count', 'unreadCount')->name('unread-count');
+    //     Route::get('/{id}', 'show')->name('show');
+    //     Route::patch('/{id}/read', 'markAsRead')->name('mark-read');
+    //     Route::post('/{id}/read', 'markAsRead')->name('mark-read.post');
+    //     Route::patch('/mark-all-read', 'markAllAsRead')->name('mark-all-read');
+    //     Route::post('/mark-all-read', 'markAllAsRead')->name('mark-all-read.post');
+    //     Route::delete('/{id}', 'destroy')->name('destroy');
+    //     Route::delete('/delete-all', 'deleteAll')->name('delete-all');
+    // });
 });
+require __DIR__ . '/client.php';
+require __DIR__ . '/trainer.php';
